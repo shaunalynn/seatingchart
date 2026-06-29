@@ -18,13 +18,14 @@
     --terra-soft:#c99a6e;
     --hair:rgba(234,227,199,.40);
     --hair-soft:rgba(234,227,199,.22);
-    /* Swap this to your real suite display font when you self-host it */
     --display:'Italiana', Georgia, serif;
     --label:'Jost', system-ui, sans-serif;
     --voice:'Cormorant Garamond', Georgia, serif;
   }
+
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+
   body{
     background:var(--olive-deep);
     font-family:var(--label);
@@ -32,16 +33,31 @@
     color:var(--cream);
     min-height:100vh;
   }
-  /* Floral bleed behind the arch crown. Uses your floral.png in the repo root. */
+
   .floral{
-    position:fixed; top:0; left:0; right:0; height:340px; z-index:0;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:340px;
+    z-index:0;
     background:#241a14 url('floral.png') center top / cover no-repeat;
   }
+
   .floral::after{
-    content:""; position:absolute; inset:0;
+    content:"";
+    position:absolute;
+    inset:0;
     background:linear-gradient(180deg, rgba(36,26,20,0) 60%, rgba(63,62,43,.25) 100%);
   }
-  .page{position:relative; z-index:1; max-width:460px; margin:0 auto;}
+
+  .page{
+    position:relative;
+    z-index:1;
+    max-width:460px;
+    margin:0 auto;
+  }
+
   .arch{
     margin-top:150px;
     background:var(--olive);
@@ -49,101 +65,289 @@
     border-radius:50% 50% 0 0 / 210px 210px 0 0;
     min-height:calc(100vh - 150px);
     padding:150px 30px 46px;
-    display:flex; flex-direction:column; align-items:center; text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
   }
-  .mono-img{display:block; height:96px; width:auto; margin:0 auto 26px;}
-  .eyebrow{font-size:11px; letter-spacing:.30em; color:var(--muted); font-weight:400;}
-  .intro{font-family:var(--voice); font-style:italic; font-size:22px; color:var(--cream); margin:18px 0 0; line-height:1.4;}
+
+  .mono-img{
+    display:block;
+    height:96px;
+    width:auto;
+    margin:0 auto 26px;
+  }
+
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.30em;
+    color:var(--muted);
+    font-weight:400;
+  }
+
+  .intro{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:22px;
+    color:var(--cream);
+    margin:18px 0 0;
+    line-height:1.4;
+  }
+
   /* Search */
-.search-button{
-  position:absolute;
-  left:17px;
-  top:50%;
-  transform:translateY(-50%);
-  width:24px;
-  height:24px;
-  padding:0;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.search-button svg{
-  width:18px;
-  height:18px;
-  stroke:var(--muted);
-  fill:none;
-}
-
-.search-button:focus-visible{
-  outline:1px solid rgba(234,227,199,.65);
-  outline-offset:4px;
-  border-radius:50%;
-}  
-  <form class="search-wrap" id="searchForm">
-  <button class="search-button" type="submit" aria-label="Search guest name">
-    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
-      <circle cx="11" cy="11" r="7"></circle>
-      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
-    </svg>
-  </button>
-
-  <label class="sr-only" for="search">Search your name</label>
-  <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
-</form>
-  #search::placeholder{color:var(--muted); letter-spacing:.04em;}
-  #search:focus{border-color:rgba(234,227,199,.85);}
-  /* Results */
-  #results{width:100%; margin-top:8px; min-height:8px;}
-  .options{display:flex; flex-direction:column; margin-top:14px;}
-  .option{
-    background:transparent; border:none; border-top:1px solid var(--hair-soft);
-    color:var(--cream); font-family:var(--label); font-size:14px; letter-spacing:.10em;
-    text-transform:uppercase; padding:15px 6px; cursor:pointer; text-align:center; transition:background-color .15s ease;
+  .search-wrap{
+    position:relative;
+    width:100%;
+    margin-top:24px;
+    border:1px solid var(--hair);
+    border-radius:30px;
+    min-height:56px;
+    display:flex;
+    align-items:center;
+    padding:0 18px;
   }
-  .option:last-child{border-bottom:1px solid var(--hair-soft);}
-  .option:hover,.option:focus-visible{background:rgba(234,227,199,.07); outline:none;}
-  .option .hint{display:block; text-transform:none; letter-spacing:.02em; font-family:var(--voice); font-style:italic; font-size:13px; color:var(--muted); margin-top:3px;}
-  .reveal{margin-top:26px; animation:rise .55s cubic-bezier(.2,.7,.2,1) both;}
-  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
-  .leadin{font-family:var(--voice); font-style:italic; font-size:17px; color:var(--muted); margin-bottom:22px;}
-  .reveal .name{font-size:11px; letter-spacing:.24em; color:var(--muted); text-transform:uppercase;}
-  .reveal .table{font-family:var(--display); font-size:46px; letter-spacing:.05em; color:var(--cream-bright); margin-top:8px; line-height:1;}
-  .reveal .note{font-family:var(--voice); font-style:italic; font-size:15px; color:var(--terra-soft); margin-top:14px;}
-  .divider{display:flex; align-items:center; justify-content:center; gap:8px; margin:30px 0;}
-  .divider .ln{height:1px; width:48px; background:var(--hair-soft);}
-  .divider .dot{width:5px; height:5px; border-radius:50%; background:var(--terra);}
-  .outro{font-family:var(--voice); font-style:italic; font-size:18px; color:var(--cream);}
-  .notfound{font-family:var(--voice); font-style:italic; font-size:17px; color:var(--cream); margin-top:30px; line-height:1.5;}
-  .status{font-family:var(--voice); font-style:italic; font-size:15px; color:var(--muted); margin-top:24px;}
+
+  .search-wrap:focus-within{
+    border-color:rgba(234,227,199,.85);
+  }
+
+  .search-button{
+    width:28px;
+    height:28px;
+    padding:0;
+    margin:0 14px 0 0;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+  }
+
+  .search-button svg{
+    width:20px;
+    height:20px;
+    stroke:var(--muted);
+    fill:none;
+  }
+
+  .search-button:focus-visible{
+    outline:1px solid rgba(234,227,199,.65);
+    outline-offset:4px;
+    border-radius:50%;
+  }
+
+  #search{
+    width:100%;
+    min-width:0;
+    background:transparent;
+    color:var(--cream-bright);
+    border:0;
+    padding:0;
+    font-family:var(--label);
+    font-size:15px;
+    letter-spacing:.02em;
+    outline:none;
+  }
+
+  #search::placeholder{
+    color:var(--muted);
+    letter-spacing:.04em;
+  }
+
+  /* Results */
+  #results{
+    width:100%;
+    margin-top:8px;
+    min-height:8px;
+  }
+
+  .options{
+    display:flex;
+    flex-direction:column;
+    margin-top:14px;
+  }
+
+  .option{
+    background:transparent;
+    border:none;
+    border-top:1px solid var(--hair-soft);
+    color:var(--cream);
+    font-family:var(--label);
+    font-size:14px;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    padding:15px 6px;
+    cursor:pointer;
+    text-align:center;
+    transition:background-color .15s ease;
+  }
+
+  .option:last-child{
+    border-bottom:1px solid var(--hair-soft);
+  }
+
+  .option:hover,
+  .option:focus-visible{
+    background:rgba(234,227,199,.07);
+    outline:none;
+  }
+
+  .option .hint{
+    display:block;
+    text-transform:none;
+    letter-spacing:.02em;
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:13px;
+    color:var(--muted);
+    margin-top:3px;
+  }
+
+  .reveal{
+    margin-top:26px;
+    animation:rise .55s cubic-bezier(.2,.7,.2,1) both;
+  }
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .leadin{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:17px;
+    color:var(--muted);
+    margin-bottom:22px;
+  }
+
+  .options-leadin{
+    margin-top:24px;
+    margin-bottom:8px;
+  }
+
+  .reveal .name{
+    font-size:11px;
+    letter-spacing:.24em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+
+  .reveal .table{
+    font-family:var(--display);
+    font-size:46px;
+    letter-spacing:.05em;
+    color:var(--cream-bright);
+    margin-top:8px;
+    line-height:1;
+  }
+
+  .reveal .note{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:15px;
+    color:var(--terra-soft);
+    margin-top:14px;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin:30px 0;
+  }
+
+  .divider .ln{
+    height:1px;
+    width:48px;
+    background:var(--hair-soft);
+  }
+
+  .divider .dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--terra);
+  }
+
+  .outro{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:18px;
+    color:var(--cream);
+  }
+
+  .notfound{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:17px;
+    color:var(--cream);
+    margin-top:30px;
+    line-height:1.5;
+  }
+
+  .status{
+    font-family:var(--voice);
+    font-style:italic;
+    font-size:15px;
+    color:var(--muted);
+    margin-top:24px;
+  }
+
   /* Footer */
-  .foot{margin-top:auto; padding-top:54px;}
-  .foot .names{font-family:var(--display); font-size:25px; letter-spacing:.10em; color:var(--cream);}
-  .foot .date{font-size:11px; letter-spacing:.22em; color:var(--muted); margin-top:8px;}
-  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+  .foot{
+    margin-top:auto;
+    padding-top:54px;
+  }
+
+  .foot .names{
+    font-family:var(--display);
+    font-size:25px;
+    letter-spacing:.10em;
+    color:var(--cream);
+  }
+
+  .foot .date{
+    font-size:11px;
+    letter-spacing:.22em;
+    color:var(--muted);
+    margin-top:8px;
+  }
+
+  .sr-only{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+  }
 </style>
 </head>
+
 <body>
   <div class="floral" aria-hidden="true"></div>
+
   <main class="page">
     <div class="arch">
       <img class="mono-img" src="monogram.png" alt="Shayla and Mark monogram">
+
       <div class="eyebrow">THE SEATING CHART</div>
       <p class="intro">We saved you a seat.</p>
 
-     <form class="search-wrap" id="searchForm">
-  <button class="search-button" type="submit" aria-label="Search">
-    <svg viewBox="0 0 24 24" stroke-width="1.6">
-      <circle cx="11" cy="11" r="7"></circle>
-      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
-    </svg>
-  </button>
-  <label class="sr-only" for="search">Search your name</label>
-  <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
-</form>
+      <form class="search-wrap" id="searchForm">
+        <button class="search-button" type="submit" aria-label="Search guest name">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+          </svg>
+        </button>
+
+        <label class="sr-only" for="search">Search your name</label>
+        <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
+      </form>
 
       <div id="results" role="status" aria-live="polite"></div>
 
@@ -156,14 +360,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-/* ============================================================
-   SETUP — only this line needs your attention
-   ============================================================
-   Paste your PUBLISHED CSV link below (File > Share > Publish to web >
-   pick the sheet tab > Comma-separated values (.csv) > Publish).
-   Leave blank to preview with the built-in sample list. */
 const CONFIG = {
-  sheetCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQlvScExJtzY4QcQsasS_dc_5-urNgEtE9toBt14J700pIvdM3PqMIray1jr4Whar96Yjab8XHQ_lzO/pub?output=csv"   // e.g. "https://docs.google.com/spreadsheets/d/e/2PACX-…/pub?gid=0&single=true&output=csv"
+  sheetCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQlvScExJtzY4QcQsasS_dc_5-urNgEtE9toBt14J700pIvdM3PqMIray1jr4Whar96Yjab8XHQ_lzO/pub?output=csv"
 };
 
 const SAMPLE = [
@@ -178,32 +376,39 @@ const SAMPLE = [
 ];
 
 function pick(row, keys){
-  for(const k in row){ if(keys.includes(String(k).trim().toLowerCase())) return String(row[k] ?? "").trim(); }
+  for(const k in row){
+    if(keys.includes(String(k).trim().toLowerCase())) {
+      return String(row[k] ?? "").trim();
+    }
+  }
   return "";
 }
+
 function rowToGuest(row){
-  let name  = pick(row, ["name","guest","full name","guest name"]);
+  let name = pick(row, ["name","guest","full name","guest name"]);
   let table = pick(row, ["table","table number","table #","table no","seat","seating"]);
   const note = pick(row, ["note","message"]);
   const hint = pick(row, ["hint","group","side","party","details","relation"]);
+
   if(!name || !table){
-    const vals = Object.values(row).map(v=>String(v??"").trim()).filter(Boolean);
-    if(!name && vals[0])  name  = vals[0];
+    const vals = Object.values(row).map(v => String(v ?? "").trim()).filter(Boolean);
+    if(!name && vals[0]) name = vals[0];
     if(!table && vals[1]) table = vals[1];
   }
+
   return {name, table, note, hint};
 }
+
 async function loadGuests(){
   if(!CONFIG.sheetCsvUrl) {
     return {
-      guests: SAMPLE.map(g => ({ ...g, _norm: norm(g.name) })),
+      guests: SAMPLE.map(g => ({...g, _norm: norm(g.name)})),
       demo: true
     };
   }
 
   const url = CONFIG.sheetCsvUrl + (CONFIG.sheetCsvUrl.includes("?") ? "&" : "?") + "cb=" + Date.now();
-
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, {cache:"no-store"});
 
   if(!res.ok) {
     throw new Error("HTTP " + res.status + " — the sheet link returned an error.");
@@ -217,104 +422,145 @@ async function loadGuests(){
     throw new Error("Got a web page, not CSV — that link isn't the published-CSV link.");
   }
 
-  const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+  if(typeof Papa === "undefined") {
+    throw new Error("PapaParse did not load.");
+  }
+
+  const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
 
   const guests = parsed.data
     .map(rowToGuest)
     .filter(g => g.name && g.table)
-    .map(g => ({
-      ...g,
-      _norm: norm(g.name)
-    }));
+    .map(g => ({...g, _norm: norm(g.name)}));
 
   console.log("Guests loaded:", guests);
 
-  return { guests, demo: false };
+  return {guests, demo:false};
 }
 
 function norm(s){
-  return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+  return String(s)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9 ]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
 }
-function lev(a,b){
-  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
-  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
-  for(let i=1;i<=m;i++){ cur[0]=i;
-    for(let j=1;j<=n;j++){ const c=a[i-1]===b[j-1]?0:1; cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+c); }
-    [prev,cur]=[cur,prev];
-  }
-  return prev[n];
-}
+
 function score(g, q, tokens){
-  const name=g._norm, words=name.split(" ");
-  if(name===q) return 100;
+  const name = g._norm || norm(g.name);
+  const words = name.split(" ");
+
+  if(name === q) return 100;
   if(name.startsWith(q)) return 92;
-  if(tokens.every(t=>words.some(w=>w.startsWith(t)))) return 84;
-  if(name.includes(q)) return 74;
-  if(tokens.every(t=>words.some(w=>w.includes(t)))) return 64;
-  const fuzzy=tokens.every(t=>{ if(t.length<3) return false;
-    return words.some(w=>{ const tol=t.length<=4?1:2; return lev(t,w)<=tol || (w.startsWith(t.slice(0,3)) && lev(t,w)<=2); });
-  });
-  return fuzzy?44:0;
+  if(words.includes(q)) return 88;
+
+  if(tokens.length > 1 && tokens.every(t => words.some(w => w.startsWith(t)))) {
+    return 84;
+  }
+
+  if(tokens.length === 1 && words.some(w => w.startsWith(tokens[0]))) {
+    return 78;
+  }
+
+  if(q.length >= 4 && name.includes(q)) {
+    return 60;
+  }
+
+  return 0;
 }
+
 function search(guests, raw){
-  const q=norm(raw); if(q.length<2) return {q, matches:[]};
-  const tokens=q.split(" ").filter(Boolean);
-  const matches=guests.map(g=>({g,s:score(g,q,tokens)})).filter(x=>x.s>0)
-    .sort((a,b)=> b.s-a.s || a.g.name.localeCompare(b.g.name)).slice(0,8);
+  const q = norm(raw);
+
+  if(q.length < 2) {
+    return {q, matches:[]};
+  }
+
+  const tokens = q.split(" ").filter(Boolean);
+
+  const matches = guests
+    .map(g => ({g, s:score(g, q, tokens)}))
+    .filter(x => x.s > 0)
+    .sort((a,b) => b.s - a.s || a.g.name.localeCompare(b.g.name))
+    .slice(0,8);
+
   return {q, matches};
 }
 
-const results=document.getElementById("results");
-const input=document.getElementById("search");
-let GUESTS=[];
-function tableLabel(t){ return /^\d/.test(t) ? "TABLE "+t : t.toUpperCase(); }
+const results = document.getElementById("results");
+const input = document.getElementById("search");
+const searchForm = document.getElementById("searchForm");
+let GUESTS = [];
+
+function tableLabel(t){
+  return /^\d/.test(String(t)) ? "TABLE " + t : String(t).toUpperCase();
+}
+
 function renderReveal(g){
   results.innerHTML =
     '<div class="reveal">'+
       '<div class="leadin">Here\u2019s where you\u2019re sitting:</div>'+
       '<div class="name">'+esc(g.name)+'</div>'+
       '<div class="table">'+esc(tableLabel(g.table))+'</div>'+
-      (g.note?'<div class="note">'+esc(g.note)+'</div>':'')+
+      (g.note ? '<div class="note">'+esc(g.note)+'</div>' : '')+
       '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
       '<div class="outro">Let\u2019s party.</div>'+
       '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
     '</div>';
 }
+
 function renderOptions(matches){
-  results.innerHTML = '<div class="options">'+matches.map((m,i)=>
-    '<button class="option" data-i="'+i+'">'+esc(m.g.name)+
-      (m.g.hint?'<span class="hint">'+esc(m.g.hint)+'</span>':'')+'</button>').join("")+'</div>';
-  results.querySelectorAll(".option").forEach(btn=>{
-    btn.addEventListener("click",()=>renderReveal(matches[+btn.dataset.i].g));
+  results.innerHTML =
+    '<div class="leadin options-leadin">Choose your full name:</div>'+
+    '<div class="options">'+
+      matches.map((m,i) =>
+        '<button class="option" data-i="'+i+'">'+esc(m.g.name)+
+          (m.g.hint ? '<span class="hint">'+esc(m.g.hint)+'</span>' : '')+
+        '</button>'
+      ).join("")+
+    '</div>';
+
+  results.querySelectorAll(".option").forEach(btn => {
+    btn.addEventListener("click", () => renderReveal(matches[+btn.dataset.i].g));
   });
 }
+
 function renderNotFound(){
   results.innerHTML = '<p class="notfound">Hmm, we can\u2019t find that name.<br>Try your last name \u2014 or text Shauna.</p>';
 }
-function update(){
-  const {q, matches}=search(GUESTS, input.value);
 
-  if(q.length<2){
+function update(){
+  const {q, matches} = search(GUESTS, input.value);
+
+  if(q.length < 2){
     results.innerHTML = '<p class="status">Please enter at least two letters.</p>';
     return;
   }
 
-  if(matches.length===0){
+  if(matches.length === 0){
     renderNotFound();
     return;
   }
 
-  if(matches.length===1){
+  if(matches.length === 1){
     renderReveal(matches[0].g);
     return;
   }
 
   renderOptions(matches);
 }
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-const searchForm = document.getElementById("searchForm");
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
 
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
@@ -324,25 +570,29 @@ searchForm.addEventListener("submit", e => {
 input.addEventListener("input", () => {
   results.innerHTML = "";
 });
-  
-results.innerHTML='<p class="status">Setting the tables\u2026</p>';
+
+results.innerHTML = '<p class="status">Setting the tables\u2026</p>';
+
 loadGuests()
-  .then(({guests, demo})=>{
-    GUESTS=guests; results.innerHTML="";
-    if(demo){ console.warn("[seating] No sheet link set — using the built-in sample list."); }
-    else if(guests.length===0){
+  .then(({guests, demo}) => {
+    GUESTS = guests;
+    results.innerHTML = "";
+
+    if(demo){
+      console.warn("[seating] No sheet link set — using the built-in sample list.");
+    } else if(guests.length === 0){
       console.error("[seating] Sheet fetched OK but 0 guests parsed. Check that row 1 is headers Name | Table.");
-      results.innerHTML='<p class="status">We couldn\u2019t read any names from the sheet \u2014 check the headers are Name and Table.</p>';
+      results.innerHTML = '<p class="status">We couldn\u2019t read any names from the sheet \u2014 check the headers are Name and Table.</p>';
     } else {
-      console.log("[seating] Loaded "+guests.length+" guests from the sheet.");
+      console.log("[seating] Loaded " + guests.length + " guests from the sheet.");
     }
   })
- .catch(err=>{
-  console.error("[seating] Couldn't load the sheet:", err.message);
-  GUESTS = [];
-  results.innerHTML =
-    '<p class="status">We’re having trouble loading the seating chart.<br>Please ask Shayla, Mark, or a member of the wedding party.</p>';
-});
+  .catch(err => {
+    console.error("[seating] Couldn't load the sheet:", err.message);
+    GUESTS = [];
+    results.innerHTML =
+      '<p class="status">We\u2019re having trouble loading the seating chart.<br>Please ask Shayla, Mark, or a member of the wedding party.</p>';
+  });
 </script>
 </body>
 </html>
