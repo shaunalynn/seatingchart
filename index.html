@@ -55,8 +55,34 @@
   .eyebrow{font-size:11px; letter-spacing:.30em; color:var(--muted); font-weight:400;}
   .intro{font-family:var(--voice); font-style:italic; font-size:22px; color:var(--cream); margin:18px 0 0; line-height:1.4;}
   /* Search */
-  .search-wrap{position:relative; width:100%; margin-top:24px;}
-  .search-wrap svg{position:absolute; left:18px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;}
+.search-button{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.search-button svg{
+  width:18px;
+  height:18px;
+  stroke:var(--muted);
+  fill:none;
+}
+
+.search-button:focus-visible{
+  outline:1px solid rgba(234,227,199,.65);
+  outline-offset:4px;
+  border-radius:50%;
+}  .search-wrap svg{position:absolute; left:18px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;}
   #search{
     width:100%; background:transparent; color:var(--cream-bright);
     border:1px solid var(--hair); border-radius:30px;
@@ -103,11 +129,16 @@
       <div class="eyebrow">THE SEATING</div>
       <p class="intro">We saved you a seat.</p>
 
-      <div class="search-wrap">
-        <svg viewBox="0 0 24 24" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
-        <label class="sr-only" for="search">Search your name</label>
-        <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
-      </div>
+     <form class="search-wrap" id="searchForm">
+  <button class="search-button" type="submit" aria-label="Search">
+    <svg viewBox="0 0 24 24" stroke-width="1.6">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+    </svg>
+  </button>
+  <label class="sr-only" for="search">Search your name</label>
+  <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
+</form>
 
       <div id="results" role="status" aria-live="polite"></div>
 
@@ -258,19 +289,37 @@ function renderNotFound(){
 }
 function update(){
   const {q, matches}=search(GUESTS, input.value);
-  if(q.length<2){ results.innerHTML=""; return; }
-  if(matches.length===0){ renderNotFound(); return; }
-  const top=matches[0], second=matches[1];
-  const confident = top.s>=84 && (!second || top.s-second.s>=20);
-  if(matches.length===1 || confident) renderReveal(top.g);
-  else renderOptions(matches);
+
+  if(q.length<2){
+    results.innerHTML = '<p class="status">Please enter at least two letters.</p>';
+    return;
+  }
+
+  if(matches.length===0){
+    renderNotFound();
+    return;
+  }
+
+  if(matches.length===1){
+    renderReveal(matches[0].g);
+    return;
+  }
+
+  renderOptions(matches);
 }
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-let timer;
-input.addEventListener("input",()=>{clearTimeout(timer); timer=setTimeout(update,130);});
-input.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const {matches}=search(GUESTS, input.value); if(matches.length) renderReveal(matches[0].g); }});
+const searchForm = document.getElementById("searchForm");
 
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+  update();
+});
+
+input.addEventListener("input", () => {
+  results.innerHTML = "";
+});
+  
 results.innerHTML='<p class="status">Setting the tables\u2026</p>';
 loadGuests()
   .then(({guests, demo})=>{
@@ -283,11 +332,12 @@ loadGuests()
       console.log("[seating] Loaded "+guests.length+" guests from the sheet.");
     }
   })
-  .catch(err=>{
-    console.error("[seating] Couldn't load the sheet:", err.message);
-    GUESTS=SAMPLE.slice();
-    results.innerHTML='<p class="status">Using the sample list \u2014 the sheet link needs a look. ('+esc(err.message)+')</p>';
-  });
+ .catch(err=>{
+  console.error("[seating] Couldn't load the sheet:", err.message);
+  GUESTS = [];
+  results.innerHTML =
+    '<p class="status">We’re having trouble loading the seating chart.<br>Please ask Shayla, Mark, or a member of the wedding party.</p>';
+});
 </script>
 </body>
 </html>
