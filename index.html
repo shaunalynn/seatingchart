@@ -158,15 +158,42 @@ function rowToGuest(row){
   return {name, table, note, hint};
 }
 async function loadGuests(){
-  if(!CONFIG.sheetCsvUrl) return {guests:SAMPLE.slice(), demo:true};
-  const url = CONFIG.sheetCsvUrl + (CONFIG.sheetCsvUrl.includes("?")?"&":"?") + "cb=" + Date.now();
-  const res = await fetch(url, {cache:"no-store"});
-  if(!res.ok) throw new Error("HTTP "+res.status+" — the sheet link returned an error.");
+  if(!CONFIG.sheetCsvUrl) {
+    return {
+      guests: SAMPLE.map(g => ({ ...g, _norm: norm(g.name) })),
+      demo: true
+    };
+  }
+
+  const url = CONFIG.sheetCsvUrl + (CONFIG.sheetCsvUrl.includes("?") ? "&" : "?") + "cb=" + Date.now();
+
+  const res = await fetch(url, { cache: "no-store" });
+
+  if(!res.ok) {
+    throw new Error("HTTP " + res.status + " — the sheet link returned an error.");
+  }
+
   const text = await res.text();
-  if(/<html|<!doctype/i.test(text.slice(0,200))) throw new Error("Got a web page, not CSV — that link isn't the published-CSV link.");
-  const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
-  const guests = parsed.data.map(rowToGuest).filter(g=>g.name && g.table);
-  return {guests, demo:false};
+
+  console.log("CSV preview:", text.slice(0, 500));
+
+  if(/<html|<!doctype/i.test(text.slice(0,200))) {
+    throw new Error("Got a web page, not CSV — that link isn't the published-CSV link.");
+  }
+
+  const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+
+  const guests = parsed.data
+    .map(rowToGuest)
+    .filter(g => g.name && g.table)
+    .map(g => ({
+      ...g,
+      _norm: norm(g.name)
+    }));
+
+  console.log("Guests loaded:", guests);
+
+  return { guests, demo: false };
 }
 
 function norm(s){
