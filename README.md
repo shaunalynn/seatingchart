@@ -11,10 +11,10 @@ Make a sheet with headers in **row 1**. Only the first two are required:
 
 | Name | Table | Note (optional) | Hint (optional) |
 |------|-------|-----------------|-----------------|
-| Shauna Panczyszyn | 7 | Right near the dance floor. | |
-| Maria Garcia | 3 | | Bride's side |
-| Maria Lopez | 9 | | Groom's cousin |
-| Elliot O'Brien | Head Table | With the wedding party. | |
+| Guest Name 1 | 7 | Right near the dance floor. | |
+| Guest Name 2 | 3 | | Bride's side |
+| Guest Name 3 | 9 | | Groom's cousin |
+| Guest Name 4 | Head Table | With the wedding party. | |
 
 - **Table** can be a number (`7` → shows "TABLE 7") or text (`Head Table` → shows "HEAD TABLE").
 - **Note** prints as the small italic line under the table number. Leave blank for none.
