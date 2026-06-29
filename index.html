@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shayla &amp; Mark — Find Your Seat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olive:#565437;
+    --olive-deep:#3f3e2b;
+    --cream:#eae3c7;
+    --cream-bright:#efe9cf;
+    --muted:#b7b395;
+    --terra:#b0502e;
+    --terra-soft:#c99a6e;
+    --hair:rgba(234,227,199,.40);
+    --hair-soft:rgba(234,227,199,.22);
+    /* Swap this to your real suite display font when self-hosting it */
+    --display:'Italiana', Georgia, serif;
+    --label:'Jost', system-ui, sans-serif;
+    --voice:'Cormorant Garamond', Georgia, serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--olive-deep);
+    font-family:var(--label);
+    -webkit-font-smoothing:antialiased;
+    color:var(--cream);
+    min-height:100vh;
+  }
+  /* Floral bleed behind the arch crown. Drop your own floral.jpg next to this file. */
+  .floral{
+    position:fixed; top:0; left:0; right:0; height:300px; z-index:0;
+    background:#241a14 url('floral.jpg') center top / cover no-repeat;
+  }
+  .floral::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(36,26,20,0) 55%, rgba(63,62,43,.25) 100%);
+  }
+  .page{
+    position:relative; z-index:1;
+    max-width:460px; margin:0 auto;
+  }
+  .arch{
+    margin-top:150px;
+    background:var(--olive);
+    border-radius:50% 50% 0 0 / 210px 210px 0 0;
+    min-height:calc(100vh - 150px);
+    padding:138px 30px 46px;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+  /* Monogram */
+  .mono{
+    width:46px; height:66px; border:1.3px solid var(--muted); border-radius:23px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-family:var(--display); font-size:23px; color:var(--muted); line-height:.95;
+    margin-bottom:26px;
+  }
+  .mono .bar{width:22px; height:1.2px; background:var(--muted); margin:2px 0;}
+  .eyebrow{font-size:11px; letter-spacing:.30em; color:var(--muted); font-weight:400;}
+  .intro{
+    font-family:var(--voice); font-style:italic; font-size:21px; color:var(--cream);
+    margin:18px 0 0; line-height:1.4;
+  }
+  /* Search */
+  .search-wrap{position:relative; width:100%; margin-top:24px;}
+  .search-wrap svg{
+    position:absolute; left:18px; top:50%; transform:translateY(-50%);
+    width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;
+  }
+  #search{
+    width:100%; background:transparent; color:var(--cream-bright);
+    border:1px solid var(--hair); border-radius:30px;
+    padding:15px 20px 15px 48px; font-family:var(--label); font-size:15px;
+    letter-spacing:.02em; outline:none; transition:border-color .2s ease;
+  }
+  #search::placeholder{color:var(--muted); letter-spacing:.04em;}
+  #search:focus{border-color:rgba(234,227,199,.85);}
+  /* Results */
+  #results{width:100%; margin-top:8px; min-height:8px;}
+  .options{display:flex; flex-direction:column; margin-top:14px;}
+  .option{
+    background:transparent; border:none; border-top:1px solid var(--hair-soft);
+    color:var(--cream); font-family:var(--label); font-size:14px; letter-spacing:.10em;
+    text-transform:uppercase; padding:15px 6px; cursor:pointer; text-align:center;
+    transition:background-color .15s ease;
+  }
+  .option:last-child{border-bottom:1px solid var(--hair-soft);}
+  .option:hover,.option:focus-visible{background:rgba(234,227,199,.07); outline:none;}
+  .option .hint{
+    display:block; text-transform:none; letter-spacing:.02em;
+    font-family:var(--voice); font-style:italic; font-size:13px; color:var(--muted); margin-top:3px;
+  }
+  .reveal{margin-top:30px; animation:rise .55s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .reveal .name{font-size:11px; letter-spacing:.24em; color:var(--muted); text-transform:uppercase;}
+  .reveal .table{
+    font-family:var(--display); font-size:46px; letter-spacing:.05em;
+    color:var(--cream-bright); margin-top:8px; line-height:1;
+  }
+  .reveal .note{
+    font-family:var(--voice); font-style:italic; font-size:15px; color:var(--terra-soft); margin-top:14px;
+  }
+  .divider{display:flex; align-items:center; justify-content:center; gap:8px; margin:30px 0;}
+  .divider .ln{height:1px; width:48px; background:var(--hair-soft);}
+  .divider .dot{width:5px; height:5px; border-radius:50%; background:var(--terra);}
+  .outro{font-family:var(--voice); font-style:italic; font-size:18px; color:var(--cream);}
+  .notfound{font-family:var(--voice); font-style:italic; font-size:17px; color:var(--cream); margin-top:30px; line-height:1.5;}
+  .loading{font-family:var(--voice); font-style:italic; font-size:16px; color:var(--muted); margin-top:24px;}
+  /* Footer */
+  .foot{margin-top:auto; padding-top:54px;}
+  .foot .names{font-family:var(--display); font-size:25px; letter-spacing:.10em; color:var(--cream);}
+  .foot .date{font-size:11px; letter-spacing:.22em; color:var(--muted); margin-top:8px;}
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+</style>
+</head>
+<body>
+  <div class="floral" aria-hidden="true"></div>
+  <main class="page">
+    <div class="arch">
+      <div class="mono" aria-hidden="true"><span>S</span><span class="bar"></span><span>M</span></div>
+      <div class="eyebrow">THE SEATING</div>
+      <p class="intro">We saved you a seat.</p>
+
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+        <label class="sr-only" for="search">Search your name</label>
+        <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
+      </div>
+
+      <div id="results" role="status" aria-live="polite"></div>
+
+      <footer class="foot">
+        <div class="names">SHAYLA &amp; MARK</div>
+        <div class="date">AUGUST 15, 2026</div>
+      </footer>
+    </div>
+  </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+/* ============================================================
+   SETUP — only this block needs editing
+   ============================================================
+   1. In your Google Sheet, use two columns with headers in row 1:
+        Name        Table
+        Jane Doe    7
+        John Smith  3
+      (Optional extra columns: Note, Hint — see README.)
+   2. File > Share > Publish to web > choose the sheet > Comma-separated values (.csv) > Publish.
+   3. Paste that published CSV link below, between the quotes.
+      Leave it blank to preview with the built-in sample list. */
+const CONFIG = {
+  sheetCsvUrl: ""   // e.g. "https://docs.google.com/spreadsheets/d/e/2PACX-…/pub?gid=0&single=true&output=csv"
+};
+
+/* Built-in sample list used when sheetCsvUrl is blank (demo mode) */
+const SAMPLE = [
+  {name:"Shauna Panczyszyn", table:"7",  note:"Right near the dance floor.", hint:""},
+  {name:"Maria Garcia",      table:"3",  note:"", hint:"Bride's side"},
+  {name:"Maria Lopez",       table:"9",  note:"", hint:"Groom's cousin"},
+  {name:"John Smith",        table:"3",  note:"", hint:"College friends"},
+  {name:"Jon Smithson",      table:"12", note:"", hint:""},
+  {name:"Aanya Krishnan",    table:"5",  note:"", hint:""},
+  {name:"Elliot O'Brien",    table:"Head Table", note:"With the wedding party.", hint:""},
+  {name:"Renée Dubois",      table:"8",  note:"", hint:""}
+];
+
+/* ---------- data loading ---------- */
+function pick(row, keys){
+  for(const k in row){
+    if(keys.includes(String(k).trim().toLowerCase())) return String(row[k] ?? "").trim();
+  }
+  return "";
+}
+function rowToGuest(row){
+  let name  = pick(row, ["name","guest","full name","guest name"]);
+  let table = pick(row, ["table","table number","table #","table no","seat","seating"]);
+  const note = pick(row, ["note","message"]);
+  const hint = pick(row, ["hint","group","side","party","details","relation"]);
+  if(!name || !table){            // positional fallback if headers weren't matched
+    const vals = Object.values(row).map(v=>String(v??"").trim()).filter(Boolean);
+    if(!name && vals[0])  name  = vals[0];
+    if(!table && vals[1]) table = vals[1];
+  }
+  return {name, table, note, hint};
+}
+async function loadGuests(){
+  if(!CONFIG.sheetCsvUrl) return SAMPLE.slice();
+  const url = CONFIG.sheetCsvUrl + (CONFIG.sheetCsvUrl.includes("?")?"&":"?") + "cb=" + Date.now();
+  const res = await fetch(url, {cache:"no-store"});
+  if(!res.ok) throw new Error("HTTP "+res.status);
+  const parsed = Papa.parse(await res.text(), {header:true, skipEmptyLines:true});
+  return parsed.data.map(rowToGuest).filter(g=>g.name && g.table);
+}
+
+/* ---------- matching ---------- */
+function norm(s){
+  return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
+  for(let i=1;i<=m;i++){
+    cur[0]=i;
+    for(let j=1;j<=n;j++){
+      const c=a[i-1]===b[j-1]?0:1;
+      cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+c);
+    }
+    [prev,cur]=[cur,prev];
+  }
+  return prev[n];
+}
+function score(guest, q, tokens){
+  const name = guest._norm;
+  const words = name.split(" ");
+  if(name===q) return 100;
+  if(name.startsWith(q)) return 92;
+  if(tokens.every(t=>words.some(w=>w.startsWith(t)))) return 84;
+  if(name.includes(q)) return 74;
+  if(tokens.every(t=>words.some(w=>w.includes(t)))) return 64;
+  const fuzzy = tokens.every(t=>{
+    if(t.length<3) return false;
+    return words.some(w=>{
+      const tol = t.length<=4?1:2;
+      return lev(t,w)<=tol || (w.startsWith(t.slice(0,3)) && lev(t,w)<=2);
+    });
+  });
+  return fuzzy?44:0;
+}
+function search(guests, raw){
+  const q = norm(raw);
+  if(q.length<2) return {q, matches:[]};
+  const tokens = q.split(" ").filter(Boolean);
+  const matches = guests
+    .map(g=>({g, s:score(g,q,tokens)}))
+    .filter(x=>x.s>0)
+    .sort((a,b)=> b.s-a.s || a.g.name.localeCompare(b.g.name))
+    .slice(0,8);
+  return {q, matches};
+}
+
+/* ---------- rendering ---------- */
+const results = document.getElementById("results");
+const input = document.getElementById("search");
+let GUESTS = [];
+
+function tableLabel(t){
+  return /^\d/.test(t) ? "TABLE "+t : t.toUpperCase();
+}
+function renderReveal(g){
+  results.innerHTML =
+    '<div class="reveal">'+
+      '<div class="name">'+esc(g.name)+'</div>'+
+      '<div class="table">'+esc(tableLabel(g.table))+'</div>'+
+      (g.note?'<div class="note">'+esc(g.note)+'</div>':'')+
+      '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
+      '<div class="outro">Let\u2019s party.</div>'+
+    '</div>';
+}
+function renderOptions(matches){
+  const rows = matches.map((m,i)=>
+    '<button class="option" data-i="'+i+'">'+esc(m.g.name)+
+      (m.g.hint?'<span class="hint">'+esc(m.g.hint)+'</span>':'')+
+    '</button>').join("");
+  results.innerHTML = '<div class="options">'+rows+'</div>';
+  results.querySelectorAll(".option").forEach(btn=>{
+    btn.addEventListener("click",()=>renderReveal(matches[+btn.dataset.i].g));
+  });
+}
+function renderNotFound(){
+  results.innerHTML = '<p class="notfound">Hmm, we can\u2019t find that name.<br>Try your last name \u2014 or text Shayla or Mark.</p>';
+}
+function update(){
+  const {q, matches} = search(GUESTS, input.value);
+  if(q.length<2){ results.innerHTML=""; return; }
+  if(matches.length===0){ renderNotFound(); return; }
+  const top=matches[0], second=matches[1];
+  const confident = top.s>=84 && (!second || top.s-second.s>=20);
+  if(matches.length===1 || confident) renderReveal(top.g);
+  else renderOptions(matches);
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+let timer;
+input.addEventListener("input",()=>{clearTimeout(timer); timer=setTimeout(update,130);});
+input.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    const {matches}=search(GUESTS, input.value);
+    if(matches.length) renderReveal(matches[0].g);
+  }
+});
+
+/* ---------- boot ---------- */
+results.innerHTML='<p class="loading">Setting the tables\u2026</p>';
+loadGuests()
+  .then(g=>{ GUESTS=g; results.innerHTML=""; })
+  .catch(err=>{
+    console.error(err);
+    GUESTS=SAMPLE.slice();
+    results.innerHTML='<p class="loading">Using the sample list \u2014 check your sheet link.</p>';
+  });
+</script>
+</body>
+</html>
