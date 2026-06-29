@@ -18,7 +18,7 @@
     --terra-soft:#c99a6e;
     --hair:rgba(234,227,199,.40);
     --hair-soft:rgba(234,227,199,.22);
-    /* Swap this to your real suite display font when self-hosting it */
+    /* Swap this to your real suite display font when you self-host it */
     --display:'Italiana', Georgia, serif;
     --label:'Jost', system-ui, sans-serif;
     --voice:'Cormorant Garamond', Georgia, serif;
@@ -32,46 +32,31 @@
     color:var(--cream);
     min-height:100vh;
   }
-  /* Floral bleed behind the arch crown. Drop your own floral.png next to this file. */
+  /* Floral bleed behind the arch crown. Uses your floral.png in the repo root. */
   .floral{
-    position:fixed; top:0; left:0; right:0; height:300px; z-index:0;
+    position:fixed; top:0; left:0; right:0; height:340px; z-index:0;
     background:#241a14 url('floral.png') center top / cover no-repeat;
   }
   .floral::after{
     content:""; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(36,26,20,0) 55%, rgba(63,62,43,.25) 100%);
+    background:linear-gradient(180deg, rgba(36,26,20,0) 60%, rgba(63,62,43,.25) 100%);
   }
-  .page{
-    position:relative; z-index:1;
-    max-width:460px; margin:0 auto;
-  }
+  .page{position:relative; z-index:1; max-width:460px; margin:0 auto;}
   .arch{
     margin-top:150px;
     background:var(--olive);
+    border:1px solid rgba(234,227,199,.12);
     border-radius:50% 50% 0 0 / 210px 210px 0 0;
     min-height:calc(100vh - 150px);
-    padding:138px 30px 46px;
+    padding:150px 30px 46px;
     display:flex; flex-direction:column; align-items:center; text-align:center;
   }
-  /* Monogram */
-  .mono{
-    width:46px; height:66px; border:1.3px solid var(--muted); border-radius:23px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-family:var(--display); font-size:23px; color:var(--muted); line-height:.95;
-    margin-bottom:26px;
-  }
-  .mono .bar{width:22px; height:1.2px; background:var(--muted); margin:2px 0;}
+  .mono-img{display:block; height:96px; width:auto; margin:0 auto 26px;}
   .eyebrow{font-size:11px; letter-spacing:.30em; color:var(--muted); font-weight:400;}
-  .intro{
-    font-family:var(--voice); font-style:italic; font-size:21px; color:var(--cream);
-    margin:18px 0 0; line-height:1.4;
-  }
+  .intro{font-family:var(--voice); font-style:italic; font-size:22px; color:var(--cream); margin:18px 0 0; line-height:1.4;}
   /* Search */
   .search-wrap{position:relative; width:100%; margin-top:24px;}
-  .search-wrap svg{
-    position:absolute; left:18px; top:50%; transform:translateY(-50%);
-    width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;
-  }
+  .search-wrap svg{position:absolute; left:18px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;}
   #search{
     width:100%; background:transparent; color:var(--cream-bright);
     border:1px solid var(--hair); border-radius:30px;
@@ -86,31 +71,23 @@
   .option{
     background:transparent; border:none; border-top:1px solid var(--hair-soft);
     color:var(--cream); font-family:var(--label); font-size:14px; letter-spacing:.10em;
-    text-transform:uppercase; padding:15px 6px; cursor:pointer; text-align:center;
-    transition:background-color .15s ease;
+    text-transform:uppercase; padding:15px 6px; cursor:pointer; text-align:center; transition:background-color .15s ease;
   }
   .option:last-child{border-bottom:1px solid var(--hair-soft);}
   .option:hover,.option:focus-visible{background:rgba(234,227,199,.07); outline:none;}
-  .option .hint{
-    display:block; text-transform:none; letter-spacing:.02em;
-    font-family:var(--voice); font-style:italic; font-size:13px; color:var(--muted); margin-top:3px;
-  }
-  .reveal{margin-top:30px; animation:rise .55s cubic-bezier(.2,.7,.2,1) both;}
+  .option .hint{display:block; text-transform:none; letter-spacing:.02em; font-family:var(--voice); font-style:italic; font-size:13px; color:var(--muted); margin-top:3px;}
+  .reveal{margin-top:26px; animation:rise .55s cubic-bezier(.2,.7,.2,1) both;}
   @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .leadin{font-family:var(--voice); font-style:italic; font-size:17px; color:var(--muted); margin-bottom:22px;}
   .reveal .name{font-size:11px; letter-spacing:.24em; color:var(--muted); text-transform:uppercase;}
-  .reveal .table{
-    font-family:var(--display); font-size:46px; letter-spacing:.05em;
-    color:var(--cream-bright); margin-top:8px; line-height:1;
-  }
-  .reveal .note{
-    font-family:var(--voice); font-style:italic; font-size:15px; color:var(--terra-soft); margin-top:14px;
-  }
+  .reveal .table{font-family:var(--display); font-size:46px; letter-spacing:.05em; color:var(--cream-bright); margin-top:8px; line-height:1;}
+  .reveal .note{font-family:var(--voice); font-style:italic; font-size:15px; color:var(--terra-soft); margin-top:14px;}
   .divider{display:flex; align-items:center; justify-content:center; gap:8px; margin:30px 0;}
   .divider .ln{height:1px; width:48px; background:var(--hair-soft);}
   .divider .dot{width:5px; height:5px; border-radius:50%; background:var(--terra);}
   .outro{font-family:var(--voice); font-style:italic; font-size:18px; color:var(--cream);}
   .notfound{font-family:var(--voice); font-style:italic; font-size:17px; color:var(--cream); margin-top:30px; line-height:1.5;}
-  .loading{font-family:var(--voice); font-style:italic; font-size:16px; color:var(--muted); margin-top:24px;}
+  .status{font-family:var(--voice); font-style:italic; font-size:15px; color:var(--muted); margin-top:24px;}
   /* Footer */
   .foot{margin-top:auto; padding-top:54px;}
   .foot .names{font-family:var(--display); font-size:25px; letter-spacing:.10em; color:var(--cream);}
@@ -122,7 +99,7 @@
   <div class="floral" aria-hidden="true"></div>
   <main class="page">
     <div class="arch">
-      <div class="mono" aria-hidden="true"><span>S</span><span class="bar"></span><span>M</span></div>
+      <img class="mono-img" src="monogram.png" alt="Shayla and Mark monogram">
       <div class="eyebrow">THE SEATING</div>
       <p class="intro">We saved you a seat.</p>
 
@@ -144,37 +121,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
 /* ============================================================
-   SETUP — only this block needs editing
+   SETUP — only this line needs your attention
    ============================================================
-   1. In your Google Sheet, use two columns with headers in row 1:
-        Name        Table
-        Jane Doe    7
-        John Smith  3
-      (Optional extra columns: Note, Hint — see README.)
-   2. File > Share > Publish to web > choose the sheet > Comma-separated values (.csv) > Publish.
-   3. Paste that published CSV link below, between the quotes.
-      Leave it blank to preview with the built-in sample list. */
+   Paste your PUBLISHED CSV link below (File > Share > Publish to web >
+   pick the sheet tab > Comma-separated values (.csv) > Publish).
+   Leave blank to preview with the built-in sample list. */
 const CONFIG = {
-  sheetCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQlvScExJtzY4QcQsasS_dc_5-urNgEtE9toBt14J700pIvdM3PqMIray1jr4Whar96Yjab8XHQ_lzO/pub?output=csv"   // e.g. "https://docs.google.com/spreadsheets/d/e/2PACX-…/pub?gid=0&single=true&output=csv"
+  sheetCsvUrl: ""   // e.g. "https://docs.google.com/spreadsheets/d/e/2PACX-…/pub?gid=0&single=true&output=csv"
 };
 
-/* Built-in sample list used when sheetCsvUrl is blank (demo mode) */
 const SAMPLE = [
-  {name:"Guest Name 1", table:"7",  note:"Right near the dance floor.", hint:""},
-  {name:"Guest Name 2",      table:"3",  note:"", hint:"Bride's side"},
-  {name:"Guest Name 3",       table:"9",  note:"", hint:"Groom's cousin"},
-  {name:"Guest Name 4",        table:"3",  note:"", hint:"College friends"},
-  {name:"Guest Name 5",      table:"12", note:"", hint:""},
-  {name:"Guest Name 6",    table:"5",  note:"", hint:""},
-  {name:"Guest Name 7",    table:"Head Table", note:"With the wedding party.", hint:""},
-  {name:"Guest Name 8",      table:"8",  note:"", hint:""}
+  {name:"Shauna Panczyszyn", table:"7",  note:"Right near the dance floor.", hint:""},
+  {name:"Maria Garcia",      table:"3",  note:"", hint:"Bride's side"},
+  {name:"Maria Lopez",       table:"9",  note:"", hint:"Groom's cousin"},
+  {name:"John Smith",        table:"3",  note:"", hint:"College friends"},
+  {name:"Jon Smithson",      table:"12", note:"", hint:""},
+  {name:"Aanya Krishnan",    table:"5",  note:"", hint:""},
+  {name:"Elliot O'Brien",    table:"Head Table", note:"With the wedding party.", hint:""},
+  {name:"Renée Dubois",      table:"8",  note:"", hint:""}
 ];
 
-/* ---------- data loading ---------- */
 function pick(row, keys){
-  for(const k in row){
-    if(keys.includes(String(k).trim().toLowerCase())) return String(row[k] ?? "").trim();
-  }
+  for(const k in row){ if(keys.includes(String(k).trim().toLowerCase())) return String(row[k] ?? "").trim(); }
   return "";
 }
 function rowToGuest(row){
@@ -182,7 +150,7 @@ function rowToGuest(row){
   let table = pick(row, ["table","table number","table #","table no","seat","seating"]);
   const note = pick(row, ["note","message"]);
   const hint = pick(row, ["hint","group","side","party","details","relation"]);
-  if(!name || !table){            // positional fallback if headers weren't matched
+  if(!name || !table){
     const vals = Object.values(row).map(v=>String(v??"").trim()).filter(Boolean);
     if(!name && vals[0])  name  = vals[0];
     if(!table && vals[1]) table = vals[1];
@@ -190,15 +158,17 @@ function rowToGuest(row){
   return {name, table, note, hint};
 }
 async function loadGuests(){
-  if(!CONFIG.sheetCsvUrl) return SAMPLE.slice();
+  if(!CONFIG.sheetCsvUrl) return {guests:SAMPLE.slice(), demo:true};
   const url = CONFIG.sheetCsvUrl + (CONFIG.sheetCsvUrl.includes("?")?"&":"?") + "cb=" + Date.now();
   const res = await fetch(url, {cache:"no-store"});
-  if(!res.ok) throw new Error("HTTP "+res.status);
-  const parsed = Papa.parse(await res.text(), {header:true, skipEmptyLines:true});
-  return parsed.data.map(rowToGuest).filter(g=>g.name && g.table);
+  if(!res.ok) throw new Error("HTTP "+res.status+" — the sheet link returned an error.");
+  const text = await res.text();
+  if(/<html|<!doctype/i.test(text.slice(0,200))) throw new Error("Got a web page, not CSV — that link isn't the published-CSV link.");
+  const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+  const guests = parsed.data.map(rowToGuest).filter(g=>g.name && g.table);
+  return {guests, demo:false};
 }
 
-/* ---------- matching ---------- */
 function norm(s){
   return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
     .replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
@@ -206,69 +176,52 @@ function norm(s){
 function lev(a,b){
   const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
   let prev=Array.from({length:n+1},(_,j)=>j), cur=new Array(n+1);
-  for(let i=1;i<=m;i++){
-    cur[0]=i;
-    for(let j=1;j<=n;j++){
-      const c=a[i-1]===b[j-1]?0:1;
-      cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+c);
-    }
+  for(let i=1;i<=m;i++){ cur[0]=i;
+    for(let j=1;j<=n;j++){ const c=a[i-1]===b[j-1]?0:1; cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+c); }
     [prev,cur]=[cur,prev];
   }
   return prev[n];
 }
-function score(guest, q, tokens){
-  const name = guest._norm;
-  const words = name.split(" ");
+function score(g, q, tokens){
+  const name=g._norm, words=name.split(" ");
   if(name===q) return 100;
   if(name.startsWith(q)) return 92;
   if(tokens.every(t=>words.some(w=>w.startsWith(t)))) return 84;
   if(name.includes(q)) return 74;
   if(tokens.every(t=>words.some(w=>w.includes(t)))) return 64;
-  const fuzzy = tokens.every(t=>{
-    if(t.length<3) return false;
-    return words.some(w=>{
-      const tol = t.length<=4?1:2;
-      return lev(t,w)<=tol || (w.startsWith(t.slice(0,3)) && lev(t,w)<=2);
-    });
+  const fuzzy=tokens.every(t=>{ if(t.length<3) return false;
+    return words.some(w=>{ const tol=t.length<=4?1:2; return lev(t,w)<=tol || (w.startsWith(t.slice(0,3)) && lev(t,w)<=2); });
   });
   return fuzzy?44:0;
 }
 function search(guests, raw){
-  const q = norm(raw);
-  if(q.length<2) return {q, matches:[]};
-  const tokens = q.split(" ").filter(Boolean);
-  const matches = guests
-    .map(g=>({g, s:score(g,q,tokens)}))
-    .filter(x=>x.s>0)
-    .sort((a,b)=> b.s-a.s || a.g.name.localeCompare(b.g.name))
-    .slice(0,8);
+  const q=norm(raw); if(q.length<2) return {q, matches:[]};
+  const tokens=q.split(" ").filter(Boolean);
+  const matches=guests.map(g=>({g,s:score(g,q,tokens)})).filter(x=>x.s>0)
+    .sort((a,b)=> b.s-a.s || a.g.name.localeCompare(b.g.name)).slice(0,8);
   return {q, matches};
 }
 
-/* ---------- rendering ---------- */
-const results = document.getElementById("results");
-const input = document.getElementById("search");
-let GUESTS = [];
-
-function tableLabel(t){
-  return /^\d/.test(t) ? "TABLE "+t : t.toUpperCase();
-}
+const results=document.getElementById("results");
+const input=document.getElementById("search");
+let GUESTS=[];
+function tableLabel(t){ return /^\d/.test(t) ? "TABLE "+t : t.toUpperCase(); }
 function renderReveal(g){
   results.innerHTML =
     '<div class="reveal">'+
+      '<div class="leadin">Here\u2019s where you\u2019re sitting:</div>'+
       '<div class="name">'+esc(g.name)+'</div>'+
       '<div class="table">'+esc(tableLabel(g.table))+'</div>'+
       (g.note?'<div class="note">'+esc(g.note)+'</div>':'')+
       '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
       '<div class="outro">Let\u2019s party.</div>'+
+      '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
     '</div>';
 }
 function renderOptions(matches){
-  const rows = matches.map((m,i)=>
+  results.innerHTML = '<div class="options">'+matches.map((m,i)=>
     '<button class="option" data-i="'+i+'">'+esc(m.g.name)+
-      (m.g.hint?'<span class="hint">'+esc(m.g.hint)+'</span>':'')+
-    '</button>').join("");
-  results.innerHTML = '<div class="options">'+rows+'</div>';
+      (m.g.hint?'<span class="hint">'+esc(m.g.hint)+'</span>':'')+'</button>').join("")+'</div>';
   results.querySelectorAll(".option").forEach(btn=>{
     btn.addEventListener("click",()=>renderReveal(matches[+btn.dataset.i].g));
   });
@@ -277,7 +230,7 @@ function renderNotFound(){
   results.innerHTML = '<p class="notfound">Hmm, we can\u2019t find that name.<br>Try your last name \u2014 or text Shayla or Mark.</p>';
 }
 function update(){
-  const {q, matches} = search(GUESTS, input.value);
+  const {q, matches}=search(GUESTS, input.value);
   if(q.length<2){ results.innerHTML=""; return; }
   if(matches.length===0){ renderNotFound(); return; }
   const top=matches[0], second=matches[1];
@@ -289,21 +242,24 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 
 let timer;
 input.addEventListener("input",()=>{clearTimeout(timer); timer=setTimeout(update,130);});
-input.addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    const {matches}=search(GUESTS, input.value);
-    if(matches.length) renderReveal(matches[0].g);
-  }
-});
+input.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const {matches}=search(GUESTS, input.value); if(matches.length) renderReveal(matches[0].g); }});
 
-/* ---------- boot ---------- */
-results.innerHTML='<p class="loading">Setting the tables\u2026</p>';
+results.innerHTML='<p class="status">Setting the tables\u2026</p>';
 loadGuests()
-  .then(g=>{ GUESTS=g; results.innerHTML=""; })
+  .then(({guests, demo})=>{
+    GUESTS=guests; results.innerHTML="";
+    if(demo){ console.warn("[seating] No sheet link set — using the built-in sample list."); }
+    else if(guests.length===0){
+      console.error("[seating] Sheet fetched OK but 0 guests parsed. Check that row 1 is headers Name | Table.");
+      results.innerHTML='<p class="status">We couldn\u2019t read any names from the sheet \u2014 check the headers are Name and Table.</p>';
+    } else {
+      console.log("[seating] Loaded "+guests.length+" guests from the sheet.");
+    }
+  })
   .catch(err=>{
-    console.error(err);
+    console.error("[seating] Couldn't load the sheet:", err.message);
     GUESTS=SAMPLE.slice();
-    results.innerHTML='<p class="loading">Using the sample list \u2014 check your sheet link.</p>';
+    results.innerHTML='<p class="status">Using the sample list \u2014 the sheet link needs a look. ('+esc(err.message)+')</p>';
   });
 </script>
 </body>
