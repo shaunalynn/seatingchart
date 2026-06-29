@@ -82,13 +82,18 @@
   outline:1px solid rgba(234,227,199,.65);
   outline-offset:4px;
   border-radius:50%;
-}  .search-wrap svg{position:absolute; left:18px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--muted); fill:none; pointer-events:none;}
-  #search{
-    width:100%; background:transparent; color:var(--cream-bright);
-    border:1px solid var(--hair); border-radius:30px;
-    padding:15px 20px 15px 48px; font-family:var(--label); font-size:15px;
-    letter-spacing:.02em; outline:none; transition:border-color .2s ease;
-  }
+}  
+  <form class="search-wrap" id="searchForm">
+  <button class="search-button" type="submit" aria-label="Search guest name">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+    </svg>
+  </button>
+
+  <label class="sr-only" for="search">Search your name</label>
+  <input id="search" type="text" placeholder="Search your name" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
+</form>
   #search::placeholder{color:var(--muted); letter-spacing:.04em;}
   #search:focus{border-color:rgba(234,227,199,.85);}
   /* Results */
