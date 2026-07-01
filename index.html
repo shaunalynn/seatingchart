@@ -6,8 +6,7 @@
 <title>Shayla &amp; Mark — Find Your Seat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300..700;1,300..700&family=Cormorant+Garamond:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"><style>
   :root{
     --olive:#565437;
     --olive-deep:#3f3e2b;
@@ -18,7 +17,7 @@
     --terra-soft:#c99a6e;
     --hair:rgba(234,227,199,.40);
     --hair-soft:rgba(234,227,199,.22);
-    --display:'Italiana', Georgia, serif;
+    --display:'Cormorant Infant', Georgia, serif;
     --label:'Jost', system-ui, sans-serif;
     --voice:'Cormorant Garamond', Georgia, serif;
   }
@@ -306,12 +305,12 @@
   padding-top:0;
 }
 
-  .foot .names{
-    font-family:var(--display);
-    font-size:25px;
-    letter-spacing:.10em;
-    color:var(--cream);
-  }
+.foot .names{
+  font-family:var(--display);
+  font-size:25px;
+  letter-spacing:.10em;
+  color:var(--cream);
+}
 
   .foot .date{
     font-size:11px;
@@ -587,7 +586,7 @@ function esc(s){
     '"':"&quot;",
     "'":"&#39;"
   }[c]));
-} 
+}
 
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
