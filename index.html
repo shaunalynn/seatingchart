@@ -31,7 +31,7 @@
     font-family:var(--label);
     -webkit-font-smoothing:antialiased;
     color:var(--cream);
-    min-height:100vh;
+   /* min-height:100vh;*/
   }
 
   .floral{
@@ -39,9 +39,9 @@
     top:0;
     left:0;
     right:0;
-    height:340px;
+    /* height:340px; */
     z-index:0;
-    background:#241a14 url('floral.png') center top / cover no-repeat;
+    background:#241a14 url('bkgd.png') center top / cover no-repeat;
   }
 
   .floral::after{
@@ -58,18 +58,19 @@
     margin:0 auto;
   }
 
-  .arch{
-    margin-top:150px;
-    background:var(--olive);
-    border:1px solid rgba(234,227,199,.12);
-    border-radius:50% 50% 0 0 / 210px 210px 0 0;
-    min-height:calc(100vh - 150px);
-    padding:150px 30px 46px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-  }
+.arch{
+  margin-top:120px;
+  background:var(--olive);
+  border:1px solid rgba(234,227,199,.12);
+  border-radius:50% 50% 0 0 / 170px 170px 0 0;
+  min-height:auto;
+  padding:70px 30px 34px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
 
   .mono-img{
     display:block;
@@ -79,18 +80,18 @@
   }
 
   .eyebrow{
-    font-size:11px;
+    font-size:15px;
     letter-spacing:.30em;
     color:var(--muted);
-    font-weight:400;
+    font-weight:500;
   }
 
   .intro{
     font-family:var(--voice);
     font-style:italic;
-    font-size:22px;
+    font-size:25px;
     color:var(--cream);
-    margin:18px 0 0;
+    margin:35px 0 0;
     line-height:1.4;
   }
 
@@ -146,7 +147,7 @@
     border:0;
     padding:0;
     font-family:var(--label);
-    font-size:15px;
+    font-size:17px;
     letter-spacing:.02em;
     outline:none;
   }
@@ -157,11 +158,11 @@
   }
 
   /* Results */
-  #results{
-    width:100%;
-    margin-top:8px;
-    min-height:8px;
-  }
+#results{
+  width:100%;
+  margin-top:8px;
+  min-height:330px;
+}
 
   .options{
     display:flex;
@@ -218,26 +219,26 @@
   .leadin{
     font-family:var(--voice);
     font-style:italic;
-    font-size:17px;
+    font-size:25px;
     color:var(--muted);
     margin-bottom:22px;
   }
 
   .options-leadin{
-    margin-top:24px;
+    margin-top:20px;
     margin-bottom:8px;
   }
 
   .reveal .name{
-    font-size:11px;
+    font-size:15px;
     letter-spacing:.24em;
-    color:var(--muted);
+    color:var(--cream);
     text-transform:uppercase;
   }
 
   .reveal .table{
     font-family:var(--display);
-    font-size:46px;
+    font-size:55px;
     letter-spacing:.05em;
     color:var(--cream-bright);
     margin-top:8px;
@@ -247,8 +248,8 @@
   .reveal .note{
     font-family:var(--voice);
     font-style:italic;
-    font-size:15px;
-    color:var(--terra-soft);
+    font-size:30px;
+    color:var(--cream);
     margin-top:14px;
   }
 
@@ -270,13 +271,13 @@
     width:5px;
     height:5px;
     border-radius:50%;
-    background:var(--terra);
+    background:var(--cream);
   }
 
   .outro{
     font-family:var(--voice);
     font-style:italic;
-    font-size:18px;
+    font-size:24px;
     color:var(--cream);
   }
 
@@ -298,10 +299,10 @@
   }
 
   /* Footer */
-  .foot{
-    margin-top:auto;
-    padding-top:54px;
-  }
+.foot{
+  margin-top:38px;
+  padding-top:0;
+}
 
   .foot .names{
     font-family:var(--display);
@@ -324,6 +325,27 @@
     overflow:hidden;
     clip:rect(0 0 0 0);
   }
+
+  .map-link{
+  display:inline-block;
+  margin-top:16px;
+  font-family:var(--voice);
+  font-style:italic;
+  font-weight:500;
+  letter-spacing:.02em;
+  font-size:18px;
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px solid var(--hair-soft);
+  padding-bottom:2px;
+}
+
+.map-link:hover,
+.map-link:focus-visible{
+  color:var(--cream-bright);
+  border-bottom-color:var(--cream-bright);
+  outline:none;
+}
 </style>
 </head>
 
@@ -350,6 +372,10 @@
       </form>
 
       <div id="results" role="status" aria-live="polite"></div>
+
+      <a class="map-link" href="YOUR_MAP_LINK_HERE" target="_blank" rel="noopener">
+  View the seating chart map
+</a>
 
       <footer class="foot">
         <div class="names">SHAYLA &amp; MARK</div>
@@ -504,9 +530,8 @@ function renderReveal(g){
       '<div class="leadin">Here\u2019s where you\u2019re sitting:</div>'+
       '<div class="name">'+esc(g.name)+'</div>'+
       '<div class="table">'+esc(tableLabel(g.table))+'</div>'+
-      (g.note ? '<div class="note">'+esc(g.note)+'</div>' : '')+
-      '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
-      '<div class="outro">Let\u2019s party.</div>'+
+     '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
+      '<div class="outro">'+esc(g.note || 'Let\u2019s party.')+'</div>'+
       '<div class="divider"><span class="ln"></span><span class="dot"></span><span class="ln"></span></div>'+
     '</div>';
 }
