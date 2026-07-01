@@ -26,30 +26,32 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
 
-  body{
-    background:var(--olive-deep);
-    font-family:var(--label);
-    -webkit-font-smoothing:antialiased;
-    color:var(--cream);
-   /* min-height:100vh;*/
-  }
+ body{
+  background:var(--olive-deep);
+  font-family:var(--label);
+  -webkit-font-smoothing:antialiased;
+  color:var(--cream);
+  min-height:100vh;
+}
 
   .floral{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    /* height:340px; */
-    z-index:0;
-    background:#241a14 url('bkgd.png') center top / cover no-repeat;
-  }
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:#241a14 url('bkgd.png') center top / cover no-repeat;
+}
 
   .floral::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg, rgba(36,26,20,0) 60%, rgba(63,62,43,.25) 100%);
-  }
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(36,26,20,0) 0%,
+    rgba(63,62,43,.15) 35%,
+    rgba(63,62,43,.65) 100%
+  );
+}
 
   .page{
     position:relative;
