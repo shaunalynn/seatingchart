@@ -551,6 +551,7 @@ function search(guests, raw){
 const results = document.getElementById("results");
 const input = document.getElementById("search");
 const searchForm = document.getElementById("searchForm");
+const clearButton = document.getElementById("clearSearch");
 let GUESTS = [];
 
 function tableLabel(t){
@@ -627,6 +628,22 @@ searchForm.addEventListener("submit", e => {
 
 input.addEventListener("input", () => {
   results.innerHTML = "";
+  clearButton.hidden = input.value.length === 0;
+});
+
+  clearButton.addEventListener("click", () => {
+  input.value = "";
+  results.innerHTML = "";
+  clearButton.hidden = true;
+  input.focus();
+});
+
+  input.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    input.value = "";
+    results.innerHTML = "";
+    clearButton.hidden = true;
+  }
 });
 
 results.innerHTML = '<p class="status">Setting the tables\u2026</p>';
