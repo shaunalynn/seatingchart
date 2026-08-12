@@ -384,24 +384,36 @@
       <div class="eyebrow">THE SEATING CHART</div>
       <p class="intro">We saved you a seat.</p>
 
-      <form class="search-wrap" id="searchForm">
-        <button class="search-button" type="submit" aria-label="Search guest name">
-          <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
-          </svg>
-        </button>
+    <form class="search-wrap" id="searchForm">
+  <button class="search-button" type="submit" aria-label="Search guest name">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+    </svg>
+  </button>
 
-        <label class="sr-only" for="search">Search your name</label>
-<input id="search" type="search" placeholder="Search first and last name" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="search">        <button
-  id="clearSearch"
-  class="clear-button"
-  type="button"
-  aria-label="Clear search"
-  hidden>
-  &times;
-</button>
-      </form>
+  <label class="sr-only" for="search">Search your name</label>
+
+  <input
+    id="search"
+    type="search"
+    placeholder="Search first and last name"
+    autocomplete="off"
+    autocapitalize="words"
+    autocorrect="off"
+    spellcheck="false"
+    enterkeyhint="search"
+  >
+
+  <button
+    id="clearSearch"
+    class="clear-button"
+    type="button"
+    aria-label="Clear search"
+    hidden>
+    &times;
+  </button>
+</form>
 
       <div id="results" role="status" aria-live="polite"></div>
 
@@ -623,6 +635,7 @@ function esc(s){
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
   update();
+  input.blur();
 });
 
 input.addEventListener("input", () => {
